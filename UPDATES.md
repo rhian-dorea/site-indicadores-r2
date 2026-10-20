@@ -1,5 +1,10 @@
 # Atualizações
 
+## 2026-10-20 — Inclusão do relatório Manutenção Claro
+
+- Adicionado o acesso Manutenção Claro à lista de relatórios, usando somente a URL do relatório extraída do iframe fornecido.
+- Preservada a configuração existente de autenticação e visualização por iframe responsivo.
+
 ## 2026-10-20 — Portal R2 de relatórios gerenciais
 
 - Reorganizado o painel em cabeçalho compacto, navegação horizontal de relatórios e área de relatório responsiva sem menu lateral.

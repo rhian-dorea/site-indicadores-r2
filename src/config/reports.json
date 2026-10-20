@@ -1,6 +1,16 @@
 {
   "reports": [
     {
+      "id": "manutencao-claro",
+      "name": "Manutenção Claro",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiMGE1NzFkNzctZTg2Mi00YTkwLWI3YmQtOTUxZjllZGIwZWMwIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
+    },
+    {
+      "id": "vivo",
+      "name": "Vivo",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiYWRlNDM1YTgtYWQ1ZC00MTIxLWI5ZjktNWI4N2VkZGVjYjgyIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
+    },
+    {
       "id": "imre",
       "name": "IMRE",
       "url": "https://app.powerbi.com/view?r=eyJrIjoiMmE1NDM4Y2YtNjllNy00ZmIwLWE3YjUtZjJhMzM1NGYyYjk4IiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
@@ -9,11 +19,6 @@
       "id": "materiais",
       "name": "Materiais",
       "url": "https://app.powerbi.com/view?r=eyJrIjoiODQ5ODg5Y2QtMjJiYi00NWUyLThhMWQtN2U1NTEzNTg4ZGUwIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
-    },
-    {
-      "id": "vivo",
-      "name": "Vivo",
-      "url": "https://app.powerbi.com/view?r=eyJrIjoiYWRlNDM1YTgtYWQ1ZC00MTIxLWI5ZjktNWI4N2VkZGVjYjgyIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
     },
     {
       "id": "banco-de-horas",
