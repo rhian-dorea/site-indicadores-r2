@@ -52,11 +52,11 @@ Referências oficiais: [comandos de build e start do Railway](https://docs.railw
 
 ## Publicar no GitHub Pages
 
-O workflow `.github/workflows/deploy.yml` compila o portal e publica `dist/` no GitHub Pages sempre que houver push na branch `main`, ou quando executado manualmente em **Actions**. O Vite usa o caminho base `/portal-indicadores/` para o endereço `https://rhian-dorea.github.io/portal-indicadores/`.
+O workflow `.github/workflows/deploy.yml` compila o portal e publica `dist/` no GitHub Pages sempre que houver push na branch `main`, ou quando executado manualmente em **Actions**. O Vite usa o caminho base `/site-indicadores-r2/` para o endereço `https://rhian-dorea.github.io/site-indicadores-r2/`.
 
 1. Em **Settings → Secrets and variables → Actions → Variables**, crie `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` com a URL do projeto e a chave publishable do Supabase. O workflow disponibiliza somente essas duas variáveis à etapa de build.
 2. Em **Settings → Pages**, selecione **GitHub Actions** como fonte de publicação.
-3. Envie as alterações para a branch `main` ou inicie o workflow **Deploy to GitHub Pages** em **Actions**. Após a conclusão, o site estará em `https://rhian-dorea.github.io/portal-indicadores/`.
+3. Envie as alterações para a branch `main` ou inicie o workflow **Deploy to GitHub Pages** em **Actions**. Após a conclusão, o site estará em `https://rhian-dorea.github.io/site-indicadores-r2/`.
 4. No Supabase, adicione esse endereço às URLs permitidas para autenticação (Site URL e Redirect URLs), conforme o fluxo de login do portal.
 
 O build incorpora a URL e a chave publishable no JavaScript entregue ao navegador, pois ambas são públicas. Não cadastre uma chave `Secret` ou `service_role` no GitHub nem no projeto frontend.

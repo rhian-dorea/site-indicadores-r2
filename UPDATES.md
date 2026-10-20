@@ -1,5 +1,11 @@
 # Atualizações
 
+## 2026-10-20 — Correção do caminho do GitHub Pages
+
+- Corrigido o caminho base do Vite para `/site-indicadores-r2/`, correspondente ao endereço publicado.
+- Confirmado que o portal não usa React Router; a navegação interna usa estado do React.
+- Preservado o login Supabase e o uso exclusivo das variáveis públicas já configuradas.
+
 ## 2026-10-20 — Publicação no GitHub Pages
 
 - Configurado o caminho base do Vite para `/portal-indicadores/`.

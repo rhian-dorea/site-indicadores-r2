@@ -5,7 +5,7 @@ export default defineConfig(({ mode }) => {
   const publicEnv = loadEnv(mode, process.cwd(), 'NEXT_PUBLIC_');
 
   return {
-    base: '/portal-indicadores/',
+    base: '/site-indicadores-r2/',
     plugins: [react()],
     define: {
       'import.meta.env.NEXT_PUBLIC_SUPABASE_URL': JSON.stringify(publicEnv.NEXT_PUBLIC_SUPABASE_URL ?? ''),
