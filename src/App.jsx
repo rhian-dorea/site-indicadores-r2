@@ -64,7 +64,7 @@ function Login({ onLogin }) {
           <p className="eyebrow eyebrow-blue">PORTAL RESTRITO</p>
           <h2>Bem-vindo de volta</h2>
           <p className="login-subtitle">Entre com suas credenciais para acessar os indicadores.</p>
-          {!supabaseConfigured && <div className="notice" role="alert">Configure <code>VITE_SUPABASE_URL</code> e <code>VITE_SUPABASE_ANON_KEY</code> no arquivo <code>.env</code> para habilitar o acesso.</div>}
+          {!supabaseConfigured && <div className="notice" role="alert">Configure <code>NEXT_PUBLIC_SUPABASE_URL</code> e <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> no arquivo <code>.env</code> para habilitar o acesso.</div>}
           {error && <div className="form-error" role="alert">{error}</div>}
           <form onSubmit={handleSubmit} className="login-form">
             <label htmlFor="email">E-mail corporativo</label>
