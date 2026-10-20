@@ -1,5 +1,10 @@
 # Atualizações
 
+## 2026-10-20 — Correção dos links do catálogo
+
+- Ajustados os registros de relatórios para usar o campo `name` esperado pelo catálogo, que antes filtrava todos por estarem cadastrados como `title`.
+- Mantidas as URLs do Power BI e a autenticação Supabase existentes.
+
 ## 2026-10-20 — Correção do caminho do GitHub Pages
 
 - Corrigido o caminho base do Vite para `/site-indicadores-r2/`, correspondente ao endereço publicado.
