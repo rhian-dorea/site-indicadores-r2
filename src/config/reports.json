@@ -1,4 +1,23 @@
 {
   "categories": ["Visão geral", "Financeiro", "Comercial", "Operações"],
-  "reports": []
+  "reports": [
+    {
+      "title": "IMRE",
+      "description": "Painel de indicadores IMRE",
+      "category": "Operações",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiMmE1NDM4Y2YtNjllNy00ZmIwLWE3YjUtZjJhMzM1NGYyYjk4IiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
+    },
+    {
+      "title": "MANUTENÇÃO",
+      "description": "Painel de indicadores de manutenção",
+      "category": "Operações",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiMGE1NzFkNzctZTg2Mi00YTkwLWI3YmQtOTUxZjllZGIwZWMwIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
+    },
+    {
+      "title": "MATERIAIS",
+      "description": "Painel de indicadores de materiais",
+      "category": "Operações",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiODQ5ODg5Y2QtMjJiYi00NWUyLThhMWQtN2U1NTEzNTg4ZGUwIiwidCI6IjE5Njk4OWM4LWZkNmUtNGExYS1iNjI4LTlkYWJlZWYwYzU5YyJ9"
+    }
+  ]
 }
