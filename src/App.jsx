@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase, supabaseConfigured } from './supabase.js';
 import catalog from './config/reports.json';
+import r2Logo from '../img/image.png';
 
 const Icon = ({ name, size = 20 }) => {
   const shared = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true };
@@ -20,6 +21,10 @@ const Icon = ({ name, size = 20 }) => {
   };
   return <svg {...shared}>{paths[name]}</svg>;
 };
+
+function R2Logo({ className = '' }) {
+  return <img className={className} src={r2Logo} alt="R2 Telecomunicações" />;
+}
 
 function authErrorMessage(error) {
   const message = error?.message?.toLowerCase() ?? '';
@@ -48,17 +53,18 @@ function Login({ onLogin }) {
   return (
     <main className="login-page">
       <section className="login-aside">
-        <div className="brand brand-light"><span className="brand-mark"><Icon name="chart" size={21} /></span><span>Portal<span className="brand-dot">.</span></span></div>
+        <div className="brand brand-light login-brand"><R2Logo className="login-logo" /><span>R2 Telecomunicações</span></div>
         <div className="aside-copy">
           <span className="eyebrow"><span className="live-dot" /> INTELIGÊNCIA PARA DECIDIR</span>
           <h1>Clareza para<br />avançar.</h1>
-          <p>Indicadores confiáveis, decisões melhores. Acesse seus relatórios gerenciais em um só lugar.</p>
+          <p>Indicadores confiáveis, decisões melhores.</p>
+          <p>Acesse seus relatórios gerenciais em um só lugar.</p>
         </div>
         <div className="aside-bottom"><Icon name="shield" size={16} /> Ambiente privado e seguro</div>
         <div className="aside-orb orb-one" /><div className="aside-orb orb-two" />
       </section>
       <section className="login-content">
-        <div className="login-mobile-brand brand"><span className="brand-mark"><Icon name="chart" size={20} /></span><span>Portal<span className="brand-dot">.</span></span></div>
+        <div className="login-mobile-brand brand"><R2Logo className="login-logo" /><span>R2 Telecomunicações</span></div>
         <div className="login-card">
           <div className="login-heading-icon"><Icon name="lock" size={20} /></div>
           <p className="eyebrow eyebrow-blue">PORTAL RESTRITO</p>
@@ -91,38 +97,63 @@ function validPowerBiUrl(value) {
 }
 
 function Dashboard({ user, onLogout }) {
-  const [selectedCategory, setSelectedCategory] = useState('Todas as categorias');
-  const [query, setQuery] = useState('');
-  const [activeReport, setActiveReport] = useState(null);
-  const reports = Array.isArray(catalog.reports) ? catalog.reports.filter((report) => report && report.name && report.description && validPowerBiUrl(report.url)) : [];
-  const categories = ['Todas as categorias', ...new Set([...(catalog.categories ?? []), ...reports.map((report) => report.category)].filter(Boolean))];
-  const visibleReports = useMemo(() => reports.filter((report) => {
-    const matchesCategory = selectedCategory === 'Todas as categorias' || report.category === selectedCategory;
-    const needle = query.trim().toLocaleLowerCase('pt-BR');
-    return matchesCategory && (!needle || `${report.name} ${report.description} ${report.category}`.toLocaleLowerCase('pt-BR').includes(needle));
-  }), [reports, selectedCategory, query]);
-  const initials = (user.email ?? 'U').slice(0, 1).toUpperCase();
+  const reports = Array.isArray(catalog.reports)
+    ? catalog.reports.filter((report) => report?.id && report.name && validPowerBiUrl(report.url))
+    : [];
+  const [activeReportId, setActiveReportId] = useState(() => reports[0]?.id ?? null);
+  const activeReport = reports.find((report) => report.id === activeReportId);
 
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
-        <a href="#inicio" className="brand brand-light" onClick={(event) => { event.preventDefault(); setActiveReport(null); }}><span className="brand-mark"><Icon name="chart" size={21} /></span><span>Portal<span className="brand-dot">.</span></span></a>
-        <div className="sidebar-section-label">ESPAÇO DE TRABALHO</div>
-        <button className={`side-link ${!activeReport ? 'active' : ''}`} onClick={() => setActiveReport(null)}><Icon name="grid" size={18} /> Catálogo</button>
-        <div className="sidebar-section-label category-label">CATEGORIAS</div>
-        <nav className="side-categories" aria-label="Filtrar por categoria">{categories.filter((category) => category !== 'Todas as categorias').map((category) => <button key={category} className={`side-link ${selectedCategory === category ? 'active' : ''}`} onClick={() => { setSelectedCategory(category); setActiveReport(null); }}><span className="category-dot" />{category}</button>)}</nav>
-        <div className="sidebar-bottom"><div className="secure-card"><span className="secure-icon"><Icon name="shield" size={17} /></span><div><strong>Ambiente seguro</strong><small>Conexão protegida</small></div><span className="secure-check">✓</span></div><button className="side-link logout-link" onClick={onLogout}><Icon name="logout" size={18} /> Sair da conta</button></div>
-      </aside>
-      <main className="main-area">
-        <header className="topbar"><div className="breadcrumb"><span>Portal</span><span className="crumb-slash">/</span><strong>{activeReport ? activeReport.name : 'Catálogo de relatórios'}</strong></div><div className="user-area"><div className="user-meta"><strong>{user.email?.split('@')[0]}</strong><span>Usuário autorizado</span></div><span className="avatar" title={user.email}>{initials}</span><button className="icon-button mobile-logout" aria-label="Sair da conta" onClick={onLogout}><Icon name="logout" size={18} /></button></div></header>
-        {activeReport ? <section className="report-view"><button className="back-button" onClick={() => setActiveReport(null)}><Icon name="back" size={18} /> Voltar ao catálogo</button><div className="report-heading"><div><span className="eyebrow eyebrow-blue">{activeReport.category}</span><h1>{activeReport.name}</h1><p>{activeReport.description}</p></div></div><div className="report-frame"><iframe title={activeReport.name} src={activeReport.url} allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><div className="frame-caption"><Icon name="shield" size={14} /> Relatório disponibilizado pelo Power BI</div></div></section> : <>
-          <section className="welcome-banner"><div className="banner-copy"><span className="eyebrow banner-eyebrow"><span className="live-dot" /> VISÃO EXECUTIVA</span><h1>Portal Gerencial de<br className="desktop-break" /> Indicadores</h1><p>Os dados certos para decisões que movem o negócio.</p></div><div className="banner-art" aria-hidden="true"><div className="art-ring ring-one"/><div className="art-ring ring-two"/><div className="art-bars"><i/><i/><i/><i/><i/><i/><i/></div><div className="art-line"/><span className="art-point point-one"/><span className="art-point point-two"/><span className="art-point point-three"/><span className="art-point point-four"/></div><div className="banner-corner"><Icon name="pulse" size={16} /> PAINÉIS ATUALIZADOS</div></section>
-          <section className="catalog-section"><div className="section-heading"><div><span className="eyebrow eyebrow-blue">CENTRAL DE RELATÓRIOS</span><h2>Seus indicadores</h2><p>Acesse os painéis disponíveis para sua área.</p></div><div className="report-count"><strong>{visibleReports.length.toString().padStart(2, '0')}</strong><span>relatórios</span></div></div>
-            <div className="catalog-controls"><div className="search-wrap"><Icon name="search" size={19} /><input type="search" aria-label="Buscar relatórios" placeholder="Buscar por nome ou descrição..." value={query} onChange={(event) => setQuery(event.target.value)} />{query && <button className="clear-search" aria-label="Limpar busca" onClick={() => setQuery('')}><Icon name="close" size={15} /></button>}</div><div className="category-pills" aria-label="Categorias">{categories.map((category) => <button key={category} className={`category-pill ${selectedCategory === category ? 'selected' : ''}`} onClick={() => setSelectedCategory(category)}>{category}</button>)}</div></div>
-            {visibleReports.length ? <div className="report-grid">{visibleReports.map((report) => <article className="report-card" key={report.id ?? report.name}><div className="card-topline"><span className="report-icon"><Icon name="chart" size={20} /></span><span className="card-category">{report.category}</span></div><h3>{report.name}</h3><p>{report.description}</p><button className="open-report" onClick={() => setActiveReport(report)}>Abrir relatório <Icon name="arrow" size={17} /></button></article>)}</div> : <div className="empty-state"><span className="empty-icon"><Icon name="empty" size={22} /></span><h3>{reports.length ? 'Nenhum relatório encontrado' : 'Seu catálogo está sendo preparado'}</h3><p>{reports.length ? 'Tente ajustar a busca ou escolha outra categoria.' : 'Os relatórios autorizados para sua área aparecerão aqui assim que forem configurados.'}</p>{query && <button className="clear-filter" onClick={() => { setQuery(''); setSelectedCategory('Todas as categorias'); }}>Limpar filtros</button>}</div>}
-          </section>
-          <footer className="app-footer"><span>© {new Date().getFullYear()} · Uso interno</span><span><Icon name="shield" size={14} /> Acesso protegido</span></footer>
-        </>}
+    <div className="reports-portal">
+      <header className="portal-header">
+        <div className="portal-brand">
+          <R2Logo className="portal-logo" />
+          <div className="portal-brand-copy">
+            <strong>R2 Telecomunicações</strong>
+            <span>Clareza para avançar. Indicadores confiáveis, decisões melhores.</span>
+          </div>
+        </div>
+        <div className="portal-actions">
+          <span className="portal-user" title={user.email}>{user.email}</span>
+          <button className="portal-logout" type="button" onClick={onLogout}>
+            <Icon name="logout" size={16} />
+            <span>Sair</span>
+          </button>
+        </div>
+      </header>
+
+      <section className="portal-intro" aria-label="Apresentação">
+        <p>Acesse seus relatórios gerenciais em um só lugar.</p>
+        {activeReport && <strong>{activeReport.name}</strong>}
+      </section>
+
+      <nav className="report-tabs" aria-label="Relatórios gerenciais">
+        {reports.map((report) => (
+          <button
+            key={report.id}
+            className={`report-tab${activeReportId === report.id ? ' is-active' : ''}`}
+            type="button"
+            aria-pressed={activeReportId === report.id}
+            onClick={() => setActiveReportId(report.id)}
+          >
+            {report.name}
+          </button>
+        ))}
+      </nav>
+
+      <main className="report-workspace">
+        {activeReport ? (
+          <iframe
+            key={activeReport.id}
+            className="report-iframe"
+            title={`Relatório ${activeReport.name}`}
+            src={activeReport.url}
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        ) : (
+          <div className="report-empty" role="status">Nenhum relatório válido foi configurado.</div>
+        )}
       </main>
     </div>
   );

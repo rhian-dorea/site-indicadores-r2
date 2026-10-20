@@ -1,5 +1,12 @@
 # Atualizações
 
+## 2026-10-20 — Portal R2 de relatórios gerenciais
+
+- Reorganizado o painel em cabeçalho compacto, navegação horizontal de relatórios e área de relatório responsiva sem menu lateral.
+- Usada a logo existente em `img/image.png` e incluídos o nome e os textos institucionais da R2 Telecomunicações.
+- Configurados IMRE, Materiais, Vivo e Banco de Horas em `src/config/reports.json`, com IMRE aberto por padrão.
+- Mantido o acesso autenticado pelo Supabase.
+
 ## 2026-10-20 — Correção dos links do catálogo
 
 - Ajustados os registros de relatórios para usar o campo `name` esperado pelo catálogo, que antes filtrava todos por estarem cadastrados como `title`.
